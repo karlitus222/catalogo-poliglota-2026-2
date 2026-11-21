@@ -1,0 +1,28 @@
+{
+  "name": "catalogo-poliglota",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node --env-file=.env src/server.js",
+    "infra:start": "docker compose up -d",
+    "supabase:start": "supabase start -x realtime,storage-api,imgproxy,mailpit,edge-runtime,logflare,vector,supavisor",
+    "local:config": "node scripts/configurar.js",
+    "setup": "node --env-file=.env scripts/setup.js",
+    "test": "node --env-file=.env --test --test-concurrency=1"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.118.0",
+    "express": "5.3.0",
+    "cookie-parser": "1.4.7",
+    "mongodb": "7.9.1",
+    "redis": "6.3.1",
+    "pg": "8.23.1"
+  },
+  "devDependencies": {
+    "supabase": "2.122.0"
+  }
+}

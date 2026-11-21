@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#18382b" />
+    <title>Essência — escolhas para o seu dia</title>
+    <link rel="icon" href="/imagens/caderno.svg" />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <header class="header">
+      <a href="#catalogo" class="brand"
+        ><span class="brand-icon">e.</span> essência<span class="brand-dot"
+          >®</span
+        ></a
+      >
+      <nav aria-label="Principal">
+        <a href="#catalogo">Coleção</a><a href="#admin">Área da loja</a
+        ><button id="abrir-carrinho" class="cart-button">
+          Sacola <span id="quantidade-sacola">0</span>
+        </button>
+      </nav>
+    </header>
+    <main>
+      <div id="aviso" role="status" hidden></div>
+      <section id="catalogo">
+        <div class="hero">
+          <div>
+            <p class="eyebrow">OBJETOS QUE FAZEM PARTE</p>
+            <h1>O essencial.<br />Do seu jeito.</h1>
+            <p>
+              Pequenas escolhas para uma rotina com mais leveza.<br />Encontre o
+              que combina com o seu dia.
+            </p>
+            <a class="button primary" href="#colecao"
+              >Explorar a coleção <span>↗</span></a
+            >
+          </div>
+          <div
+            class="hero-art"
+            aria-label="Ilustração de uma seleção de objetos"
+          >
+            <span class="orbit"></span
+            ><img
+              src="/imagens/mochila.svg"
+              alt="Mochila da coleção"
+              class="hero-bag"
+            /><img
+              src="/imagens/garrafa.svg"
+              alt="Garrafa da coleção"
+              class="hero-bottle"
+            />
+            <div class="hero-tag">
+              ESCOLHIDOS PARA<br /><strong>acompanhar você.</strong>
+            </div>
+            <span class="edition">COLEÇÃO 2026 / 02</span>
+          </div>
+        </div>
+        <div class="benefits">
+          <span>✧ Design para todos os dias</span
+          ><span>↗ Pedido direto pelo WhatsApp</span
+          ><span>♡ Escolhas com personalidade</span>
+        </div>
+        <section
+          class="collection"
+          id="colecao"
+          aria-labelledby="titulo-colecao"
+        >
+          <div class="section-top">
+            <div>
+              <p class="eyebrow">SUA PRÓXIMA DESCOBERTA</p>
+              <h2 id="titulo-colecao">Nossa coleção</h2>
+            </div>
+            <p id="contagem"></p>
+          </div>
+          <div class="filters">
+            <label class="search"
+              >Buscar na coleção<input
+                id="busca"
+                placeholder="O que você está procurando?"
+                type="search" /></label
+            ><label
+              >Categoria<select id="categoria">
+                <option value="">Todas as categorias</option>
+              </select></label
+            >
+          </div>
+          <div id="produtos" class="products" aria-live="polite"></div>
+          <p id="origem" class="muted"></p>
+        </section>
+        <section class="recent-section" aria-labelledby="titulo-recentes">
+          <div class="section-top">
+            <div>
+              <p class="eyebrow">CONTINUE EXPLORANDO</p>
+              <h2 id="titulo-recentes">Você viu por aqui</h2>
+            </div>
+            <span class="muted">Suas últimas escolhas</span>
+          </div>
+          <div id="recentes" class="recent-grid"></div>
+        </section>
+      </section>
+      <section id="admin" hidden>
+        <div class="admin-heading">
+          <p class="eyebrow">ESSÊNCIA / GESTÃO</p>
+          <h1>Área da loja</h1>
+          <p>Cuide da coleção, acompanhe pedidos e confira suas integrações.</p>
+        </div>
+        <form id="login" class="panel login">
+          <h2>Bem-vindo de volta</h2>
+          <p class="muted">Entre com sua conta de administrador.</p>
+          <label
+            >E-mail<input
+              name="email"
+              type="email"
+              autocomplete="username"
+              required /></label
+          ><label
+            >Senha<input
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required /></label
+          ><button class="button primary">Entrar no painel</button>
+          <p id="login-erro" role="alert"></p>
+        </form>
+        <div id="painel" hidden>
+          <div class="admin-bar">
+            <p id="usuario"></p>
+            <button id="sair" class="button outline">Sair</button>
+          </div>
+          <div class="admin-tabs">
+            <button id="tab-produtos">Produtos</button
+            ><button id="tab-pedidos">Pedidos</button
+            ><button id="tab-integracoes">Integrações</button>
+          </div>
+          <section id="gestao">
+            <div class="section-top">
+              <h2>Produtos da coleção</h2>
+              <button id="novo" class="button primary">+ Novo produto</button>
+            </div>
+            <div id="lista-admin"></div>
+          </section>
+          <section id="pedidos" hidden>
+            <h2>Pedidos iniciados</h2>
+            <p class="muted">
+              O contato e a confirmação da compra acontecem no WhatsApp.
+            </p>
+            <div id="lista-pedidos"></div>
+          </section>
+          <section id="integracoes" hidden>
+            <h2>Três bancos, uma experiência</h2>
+            <button id="atualizar-integracoes" class="button outline">
+              Atualizar conexões
+            </button>
+            <div id="conexoes" class="integration-grid"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <a href="#catalogo" class="brand">essência.</a>
+      <p>Objetos simples. Dias cheios de possibilidades.</p>
+      <span>Projeto acadêmico · Carlos Gabriel</span>
+    </footer>
+    <dialog id="produto-dialog">
+      <button
+        class="close"
+        data-close="produto-dialog"
+        aria-label="Fechar produto"
+      >
+        ×
+      </button>
+      <div id="detalhe"></div>
+    </dialog>
+    <dialog id="sacola">
+      <div class="dialog-heading">
+        <h2>Sua sacola</h2>
+        <button class="close" data-close="sacola" aria-label="Fechar sacola">
+          ×
+        </button>
+      </div>
+      <div id="itens-sacola"></div>
+      <div class="total">
+        <span>Total estimado</span><strong id="total"></strong>
+      </div>
+      <p class="muted">
+        Preços conferidos ao preparar o pedido. Disponibilidade e pagamento
+        combinados com a loja.
+      </p>
+      <button id="comprar" class="button primary full">
+        Preparar pedido no WhatsApp ↗
+      </button>
+      <div id="pedido-pronto" hidden>
+        <h3>Seu pedido está pronto</h3>
+        <pre id="mensagem-pedido"></pre>
+        <a
+          id="link-whatsapp"
+          class="button primary"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Abrir WhatsApp ↗</a
+        >
+        <p class="muted">A mensagem será aberta para você revisar e enviar.</p>
+      </div>
+    </dialog>
+    <dialog id="form-dialog">
+      <div class="dialog-heading">
+        <h2 id="form-titulo">Novo produto</h2>
+        <button
+          class="close"
+          data-close="form-dialog"
+          aria-label="Fechar formulário"
+        >
+          ×
+        </button>
+      </div>
+      <form id="form-produto">
+        <input name="id" type="hidden" /><input
+          name="versao"
+          type="hidden"
+        /><label
+          >Nome<input
+            name="nome"
+            minlength="3"
+            maxlength="100"
+            required /></label
+        ><label
+          >Descrição<textarea
+            name="descricao"
+            minlength="10"
+            maxlength="1000"
+            required
+          ></textarea>
+        </label>
+        <div class="pair">
+          <label
+            >Categoria<input name="categoria" maxlength="40" required /></label
+          ><label
+            >Preço (R$)<input
+              name="preco"
+              type="number"
+              min="0.01"
+              step="0.01"
+              max="99999"
+              required
+          /></label>
+        </div>
+        <label
+          >Imagem<select name="imagem">
+            <option value="/imagens/caderno.svg">Caderno</option>
+            <option value="/imagens/mochila.svg">Mochila</option>
+            <option value="/imagens/garrafa.svg">Garrafa</option>
+            <option value="/imagens/caneta.svg">Caneta</option>
+            <option value="/imagens/fone.svg">Fone</option>
+            <option value="/imagens/luminaria.svg">Luminária</option>
+          </select></label
+        >
+        <div class="pair">
+          <label
+            >Atributo (opcional)<input
+              name="atributo"
+              maxlength="40"
+              placeholder="Ex.: Material" /></label
+          ><label
+            >Valor do atributo<input
+              name="valor"
+              maxlength="120"
+              placeholder="Ex.: Algodão"
+          /></label>
+        </div>
+        <p id="form-erro" role="alert"></p>
+        <button class="button primary full">Salvar produto</button>
+      </form>
+    </dialog>
+  </body>
+</html>

@@ -1,0 +1,2 @@
+-- Os seis produtos são instalados no MongoDB por npm run setup.
+-- O usuário administrativo também é criado pelo instalador, sem senha no Git.
