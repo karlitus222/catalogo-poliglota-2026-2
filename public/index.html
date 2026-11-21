@@ -87,7 +87,13 @@
               </select></label
             >
           </div>
-          <div id="produtos" class="products" aria-live="polite"></div>
+          <div id="filtros-ativos" class="filter-state" hidden></div>
+          <div
+            id="produtos"
+            class="products"
+            aria-live="polite"
+            aria-busy="false"
+          ></div>
           <p id="origem" class="muted"></p>
         </section>
         <section class="recent-section" aria-labelledby="titulo-recentes">
@@ -131,9 +137,11 @@
             <button id="sair" class="button outline">Sair</button>
           </div>
           <div class="admin-tabs">
-            <button id="tab-produtos">Produtos</button
-            ><button id="tab-pedidos">Pedidos</button
-            ><button id="tab-integracoes">Integrações</button>
+            <button id="tab-produtos" aria-pressed="true">Produtos</button
+            ><button id="tab-pedidos" aria-pressed="false">Pedidos</button
+            ><button id="tab-integracoes" aria-pressed="false">
+              Integrações
+            </button>
           </div>
           <section id="gestao">
             <div class="section-top">
@@ -213,6 +221,9 @@
         role="status"
         aria-live="polite"
       ></p>
+      <button id="desfazer-remocao" class="undo-button" hidden>
+        ↶ Desfazer remoção
+      </button>
       <div id="itens-sacola"></div>
       <div class="total">
         <span>Total estimado</span><strong id="total"></strong>
@@ -221,11 +232,16 @@
         Preços conferidos ao preparar o pedido. Disponibilidade e pagamento
         combinados com a loja.
       </p>
+      <p id="pedido-status" class="request-status" role="status" hidden></p>
       <button id="comprar" class="button primary full">
         Preparar pedido no WhatsApp ↗
       </button>
       <div id="pedido-pronto" hidden>
+        <span class="success-seal" aria-hidden="true">✓</span>
         <h3>Seu pedido está pronto</h3>
+        <p class="order-confirmation" role="status">
+          Tudo certo! Confira o resumo e continue no WhatsApp.
+        </p>
         <pre id="mensagem-pedido"></pre>
         <a
           id="link-whatsapp"

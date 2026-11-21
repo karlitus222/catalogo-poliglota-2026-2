@@ -34,3 +34,9 @@ O vídeo fica para a última etapa, conforme combinado. Deve mostrar a aplicaç�
 - 6:00–7:00: explicar configuração, testes e limitações. Se houver tempo, demonstrar BYPASS com Redis parado.
 
 Não mostrar .env, senha, tokens ou chaves durante a gravação. O usuário ainda escolherá/grava a narração. Após conferir o vídeo, publicar o link e enviar o trabalho na Plataforma A.
+
+## Feedback de interação ampliado
+
+A interface inclui confirmação ao adicionar à sacola, quantidade marcada no card, contador animado, aviso flutuante, filtros ativos com limpeza, estados de carregamento, tentativa novamente em falhas, remoção com desfazer, preparação do pedido com bloqueio de cliques repetidos, confirmação de sucesso, abas administrativas ativas e indicadores das conexões. As animações respeitam prefers-reduced-motion.
+
+Conferência funcional adicional em DOM isolado (21/11/2026): busca/limpeza, confirmação de adição, carregamento da sacola, remoção/desfazer, quantidade sem perda de foco e finalização com respostas de erro/sucesso. Dois cliques rápidos geraram uma solicitação. Essa conferência usa respostas controladas e não substitui a revisão visual no navegador; os testes dos bancos reais continuam descritos no README.
