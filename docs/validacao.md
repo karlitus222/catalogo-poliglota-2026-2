@@ -1,42 +1,38 @@
-# Validação da interface e roteiro final
+# Roteiro de apresentação
 
-## Estado em 21/11/2026
+## Preparação
 
-- Implementação pronta para revisão.
-- Onze testes automatizados aprovados com serviços reais.
-- Supabase security advisors sem problemas; npm audit sem vulnerabilidades reportadas.
-- A conferência no navegador foi interrompida pela ferramenta antes de inspecionar o aplicativo, pois não foi possível determinar a URL com segurança.
-- Não há capturas de tela apresentadas como verificadas.
-- Vídeo e submissão no Gennera ainda pendentes.
+Inicie os serviços e a aplicação seguindo o README. A apresentação deve durar de 5 a 10 minutos e mostrar o sistema em execução. A revisão visual e a gravação ainda estão pendentes.
 
-## Conferência visual antes do vídeo
+## Fluxos a conferir
 
-1. Abra http://127.0.0.1:3026 e confira coleção, imagens, pesquisa e filtro de categoria.
-2. Conheça dois produtos e volte ao primeiro: os recentes devem aparecer na ordem de acesso, sem repetição. Uma janela anônima deve ter histórico separado.
-3. Adicione dois produtos à sacola, mude quantidades, remova um e confira o total. Recarregue a página e confirme que a sacola persiste.
-4. Acesse Área da loja pelo menu (ou /admin diretamente), tente senha inválida e depois use a conta do .env. Sem sessão o painel deve mostrar o login.
-5. Cadastre um novo produto com nome, descrição, categoria, preço, imagem e um atributo. Volte à coleção e confira sua presença. Edite o preço e confira o catálogo novamente.
-6. Adicione o novo produto e prepare um pedido. Confira quantidades e total no texto. O link deve apontar ao destino configurado e abrir a conversa com texto pronto; não é necessário enviar a mensagem durante o ensaio.
-7. No painel, confira o pedido salvo e o status dos três bancos. A primeira consulta de catálogo após gravação deve ser MISS e a seguinte HIT.
-8. Pare apenas Redis: docker compose stop redis. O catálogo continua disponível e o histórico informa indisponibilidade. Reinicie com docker compose start redis e consulte novamente.
-9. Saia da conta; confira que cadastrar ou editar exige novo login.
-10. Confira também em uma janela estreita (celular): menu, filtros, cards, formulário e sacola sem elementos cortados.
+1. Abra http://127.0.0.1:3026. Confira os produtos, a busca, as categorias e os links das seções da página.
+2. Abra dois produtos e depois volte ao primeiro. O histórico deve acompanhar a ordem de acesso, sem repetir itens. Uma janela anônima deve apresentar um histórico separado.
+3. Adicione produtos à sacola. Confira a confirmação no botão, a quantidade no card e o aviso flutuante.
+4. Altere quantidades, remova um item e desfaça a remoção. Confira o total e a persistência da sacola após recarregar a página.
+5. Entre em Área da loja usando a conta configurada no .env. Confira também a mensagem para senha incorreta e a exigência de login para acesso ao painel.
+6. Cadastre um produto com nome, descrição, preço, categoria, imagem e um atributo. Confira sua presença no catálogo. Edite o preço e consulte novamente.
+7. Prepare um pedido. Confira os itens, as quantidades, o total e a mensagem. Abra o WhatsApp para mostrar o texto preparado; não é necessário enviar durante o ensaio.
+8. No painel, consulte o registro do pedido e o estado das três conexões.
+9. Confira a listagem após uma gravação: primeiro MISS, depois HIT. Pare apenas o Redis com `docker compose stop redis` e confira o BYPASS. Reinicie com `docker compose start redis`.
+10. Saia do painel e confirme que cadastrar ou editar exige novo login.
+11. Confira a página em uma janela estreita: navegação, cards, formulários, perguntas frequentes e sacola.
 
-## Roteiro do vídeo — 5 a 10 minutos
+## Sequência sugerida para o vídeo
 
-O vídeo fica para a última etapa, conforme combinado. Deve mostrar a aplicação executando, não apenas imagens estáticas.
+| Tempo     | Conteúdo                                                     |
+| --------- | ------------------------------------------------------------ |
+| 0:00–0:45 | Proposta da loja e função de cada banco                      |
+| 0:45–1:45 | Catálogo, filtros, detalhes, recentes e sacola               |
+| 1:45–3:30 | Login, cadastro, atributos e edição; atualização do catálogo |
+| 3:30–5:00 | Pedido, total calculado no servidor e abertura do WhatsApp   |
+| 5:00–6:00 | Pedidos salvos, conexões e cache MISS/HIT                    |
+| 6:00–7:00 | Configuração, testes e limites; BYPASS, se houver tempo      |
 
-- 0:00–0:45: proposta da loja e justificativa de cada banco.
-- 0:45–1:45: catálogo, filtros, detalhes, itens recentes e sacola.
-- 1:45–3:30: login real do administrador, cadastro de produto, atributos flexíveis e edição. Conferir atualização no catálogo público.
-- 3:30–5:00: compra simulada, quantidades, total recalculado, texto formatado e abertura do WhatsApp.
-- 5:00–6:00: painel de pedidos e integrações, mostrar MISS/HIT e propósito do Redis.
-- 6:00–7:00: explicar configuração, testes e limitações. Se houver tempo, demonstrar BYPASS com Redis parado.
+Mantenha senhas, tokens, chaves e o arquivo .env fora da gravação.
 
-Não mostrar .env, senha, tokens ou chaves durante a gravação. O usuário ainda escolherá/grava a narração. Após conferir o vídeo, publicar o link e enviar o trabalho na Plataforma A.
+## Validação realizada
 
-## Feedback de interação ampliado
+Em 21/11/2026, os 11 testes de integração passaram com Supabase, MongoDB e Redis locais. O advisor de segurança do Supabase não reportou problemas e o npm audit não reportou vulnerabilidades.
 
-A interface inclui confirmação ao adicionar à sacola, quantidade marcada no card, contador animado, aviso flutuante, filtros ativos com limpeza, estados de carregamento, tentativa novamente em falhas, remoção com desfazer, preparação do pedido com bloqueio de cliques repetidos, confirmação de sucesso, abas administrativas ativas e indicadores das conexões. As animações respeitam prefers-reduced-motion.
-
-Conferência funcional adicional em DOM isolado (21/11/2026): busca/limpeza, confirmação de adição, carregamento da sacola, remoção/desfazer, quantidade sem perda de foco e finalização com respostas de erro/sucesso. Dois cliques rápidos geraram uma solicitação. Essa conferência usa respostas controladas e não substitui a revisão visual no navegador; os testes dos bancos reais continuam descritos no README.
+A interface também foi conferida em DOM isolado, com respostas controladas, para busca, limpeza de filtros, confirmação de adição, carregamento da sacola, remoção e desfazer, atualização de quantidade e pedido com erro ou sucesso. Dois cliques rápidos geraram uma solicitação. Essa validação não substitui a revisão visual no navegador.

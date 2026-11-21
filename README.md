@@ -6,7 +6,6 @@ Catálogo de produtos com painel administrativo, sacola e pedido pelo WhatsApp. 
 - Disciplina: Projeto de Banco de Dados — 26/2
 - Trabalho: 3ª avaliação, 6 pontos, prazo 26/11/2026 às 23h30
 - [Repositório](https://github.com/karlitus222/catalogo-poliglota-2026-2)
-- Situação: implementação e testes de integração preparados; revisão visual e vídeo pendentes. A entrega no Gennera será feita após o vídeo.
 
 ## Problema e proposta
 
@@ -27,7 +26,6 @@ A marca e os produtos são fictícios. As ilustrações SVG locais fazem parte d
 | WhatsApp                      | Link `wa.me` com itens, quantidades, total e referência; cliente revisa e envia                        |
 | Outros usos Supabase          | Registro do pedido no PostgreSQL e consulta pelo administrador                                         |
 | Código e configuração         | Este repositório, Docker Compose, migração, instalador e `.env.example`                                |
-| Vídeo de 5 a 10 minutos       | Pendente, reservado para a etapa final                                                                 |
 
 ## Executar localmente
 
@@ -48,9 +46,9 @@ Abra **http://127.0.0.1:3026**. No PowerShell, se `npm.ps1` estiver bloqueado, u
 
 `local:config` cria `.env` a partir da CLI do Supabase local e gera uma senha aleatória. Nenhuma credencial é impressa. Para entrar, use **Área da loja** no menu ou abra **http://127.0.0.1:3026/admin** e use `ADMIN_EMAIL` e `ADMIN_PASSWORD` do seu `.env`. O e-mail inicial é `admin@catalogo.local`. `setup` cria a conta apenas se ela ainda não existir; não altera senhas de contas existentes.
 
-Edite `WHATSAPP_NUMBER` em `.env` com o destino da loja no formato **55 + DDD + número**, só dígitos. O valor de exemplo é propositalmente inválido: o app impede finalizar sem configuração. Reinicie o servidor após alterar. O ambiente do autor já tem seu destino configurado; o número não está publicado no código.
+Edite `WHATSAPP_NUMBER` em `.env` com o destino da loja no formato **55 + DDD + número**, só dígitos. É necessário configurar um número válido para preparar pedidos. Reinicie o servidor após alterar essa variável.
 
-O Supabase é o ambiente local oficial, com Auth, PostgreSQL e Data API reais. Não é necessário criar uma conta na nuvem. MongoDB e Redis também são serviços reais em Docker. Nenhuma integração é simulada.
+O projeto usa Supabase local com Auth, PostgreSQL e Data API, além de MongoDB e Redis em Docker. Não é necessário criar uma conta na nuvem para executar.
 
 ### Configuração
 
@@ -112,7 +110,7 @@ A primeira listagem é MISS: lê o MongoDB e salva a resposta por 30 segundos. L
 
 Os itens vistos usam `catalogo:recentes:<UUID-do-visitante>` em sorted sets: ID como membro, horário como score, limite de oito produtos e expiração de 24 horas. O UUID fica em cookie HttpOnly separado da autenticação. Reabrir o mesmo produto atualiza sua posição sem duplicá-lo. Visitantes diferentes têm chaves distintas; produtos são lidos novamente no MongoDB para exibir o histórico.
 
-Se o Redis cair, o catálogo funciona com BYPASS e consulta direta ao MongoDB. O histórico recente informa indisponibilidade; não inventa dados. Na reconexão, o cache do catálogo é descartado antes da reutilização. Redis não persiste dados e pode perder o histórico, adequado à finalidade temporária. Limite de memória: 64 MB com `allkeys-lru`.
+Se o Redis cair, o catálogo funciona com BYPASS e consulta direta ao MongoDB. O histórico recente fica indisponível até a reconexão. Ao reconectar, o cache do catálogo é descartado antes da reutilização. Redis não persiste dados e pode perder o histórico. Limite de memória: 64 MB com `allkeys-lru`.
 
 ## Carrinho e finalização
 
@@ -136,7 +134,7 @@ Em 21/11/2026: **11 testes aprovados, sem falhas ou ignorados**; advisor Supabas
 
 São criados apenas registros de teste identificáveis e prefixos de cache exclusivos. A limpeza apaga esses registros ao terminar. O destino do WhatsApp é verificado pela URL sem enviar mensagem.
 
-**Conferência visual pendente:** a ferramenta de controle do navegador foi interrompida por não conseguir identificar a URL com segurança. Os testes de API não substituem a revisão das telas. Confira o roteiro em [docs/validacao.md](docs/validacao.md) antes de gravar o vídeo.
+A revisão visual e o vídeo de apresentação ainda precisam ser concluídos. O [roteiro de apresentação](docs/validacao.md) reúne os fluxos a conferir e demonstrar.
 
 ## Segurança e limites
 
