@@ -205,26 +205,22 @@ export function criarApp({ mongo, redis, cache, supabase, env = process.env }) {
     if (!/^55\d{10,11}$/.test(telefone) || /^550+$/.test(telefone))
       throw new AppError("O WhatsApp da loja ainda não foi configurado.", 503);
     const mensagem = `${pedido.mensagem}\nReferência: ${codigo.slice(0, 8)}`;
-    const { error } = await supabase
-      .from("catalogo_pedidos")
-      .insert({
-        id: codigo,
-        itens: pedido.itens,
-        total_centavos: pedido.total,
-      });
+    const { error } = await supabase.from("catalogo_pedidos").insert({
+      id: codigo,
+      itens: pedido.itens,
+      total_centavos: pedido.total,
+    });
     if (error)
       throw new AppError(
         "Não foi possível registrar o pedido. Tente novamente.",
         503,
       );
-    res
-      .status(201)
-      .json({
-        ...pedido,
-        codigo,
-        mensagem,
-        url: `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`,
-      });
+    res.status(201).json({
+      ...pedido,
+      codigo,
+      mensagem,
+      url: `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`,
+    });
   });
   app.get("/api/admin/pedidos", admin, async (req, res) => {
     const { data, error } = await supabase
@@ -249,16 +245,20 @@ export function criarApp({ mongo, redis, cache, supabase, env = process.env }) {
       redis: await cache.status(),
     });
   });
+  app.get("/admin", (_req, res) => {
+    res.set("Cache-Control", "no-store");
+    res.sendFile(
+      fileURLToPath(new URL("../public/index.html", import.meta.url)),
+    );
+  });
   app.use(express.static(fileURLToPath(new URL("../public", import.meta.url))));
   app.use((error, req, res, next) => {
     if (res.headersSent) return next(error);
-    res
-      .status(error.status || 500)
-      .json({
-        error: error.status
-          ? error.message
-          : "Serviço temporariamente indisponível.",
-      });
+    res.status(error.status || 500).json({
+      error: error.status
+        ? error.message
+        : "Serviço temporariamente indisponível.",
+    });
   });
   return app;
 }

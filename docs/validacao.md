@@ -14,7 +14,7 @@
 1. Abra http://127.0.0.1:3026 e confira coleção, imagens, pesquisa e filtro de categoria.
 2. Conheça dois produtos e volte ao primeiro: os recentes devem aparecer na ordem de acesso, sem repetição. Uma janela anônima deve ter histórico separado.
 3. Adicione dois produtos à sacola, mude quantidades, remova um e confira o total. Recarregue a página e confirme que a sacola persiste.
-4. Em Área da loja, tente senha inválida e depois use a conta do .env. Sem sessão o painel deve mostrar o login.
+4. Acesse /admin diretamente (sem link no catálogo), tente senha inválida e depois use a conta do .env. Sem sessão o painel deve mostrar o login.
 5. Cadastre um novo produto com nome, descrição, categoria, preço, imagem e um atributo. Volte à coleção e confira sua presença. Edite o preço e confira o catálogo novamente.
 6. Adicione o novo produto e prepare um pedido. Confira quantidades e total no texto. O link deve apontar ao destino configurado e abrir a conversa com texto pronto; não é necessário enviar a mensagem durante o ensaio.
 7. No painel, confira o pedido salvo e o status dos três bancos. A primeira consulta de catálogo após gravação deve ser MISS e a seguinte HIT.
