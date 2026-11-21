@@ -164,6 +164,32 @@
       <p>Objetos simples. Dias cheios de possibilidades.</p>
       <span>Projeto acadêmico · Carlos Gabriel</span>
     </footer>
+    <p
+      id="cart-live"
+      class="sr-only"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    ></p>
+    <div id="cart-toast" class="cart-toast" popover="manual" hidden>
+      <div class="toast-content">
+        <img id="toast-image" src="/imagens/caderno.svg" alt="" hidden />
+        <div id="toast-announcement">
+          <strong id="toast-title"></strong>
+          <p id="toast-description"></p>
+        </div>
+        <button
+          id="toast-close"
+          class="toast-close"
+          aria-label="Fechar confirmação"
+        >
+          ×
+        </button>
+      </div>
+      <button id="toast-cart" class="toast-action">
+        Ver minha sacola <span aria-hidden="true">↗</span>
+      </button>
+    </div>
     <dialog id="produto-dialog">
       <button
         class="close"
@@ -181,6 +207,12 @@
           ×
         </button>
       </div>
+      <p
+        id="sacola-status"
+        class="cart-status"
+        role="status"
+        aria-live="polite"
+      ></p>
       <div id="itens-sacola"></div>
       <div class="total">
         <span>Total estimado</span><strong id="total"></strong>

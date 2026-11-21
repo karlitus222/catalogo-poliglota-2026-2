@@ -17,6 +17,91 @@ let produtos = [],
   carrinho = [],
   usuario = null,
   origem = "";
+let toastTimer;
+let toastOrigin;
+const buttonTimers = new WeakMap();
+
+function animar(elemento, classe) {
+  elemento.classList.remove(classe);
+  void elemento.offsetWidth;
+  elemento.classList.add(classe);
+}
+function fecharToast() {
+  clearTimeout(toastTimer);
+  const toast = $("#cart-toast");
+  const devolverFoco = toast.contains(document.activeElement);
+  if (typeof toast.hidePopover === "function" && toast.matches(":popover-open"))
+    toast.hidePopover();
+  toast.hidden = true;
+  if (devolverFoco)
+    (toastOrigin?.isConnected ? toastOrigin : $("#abrir-carrinho")).focus();
+}
+function programarToast() {
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    // Não remover um botão enquanto o usuário está usando o teclado nele.
+    if ($("#cart-toast").contains(document.activeElement)) return;
+    fecharToast();
+  }, 5500);
+}
+function confirmarSacola(titulo, descricao, imagem) {
+  const toast = $("#cart-toast");
+  if (!toast.contains(document.activeElement))
+    toastOrigin = document.activeElement;
+  $("#toast-title").textContent = titulo;
+  $("#toast-description").textContent = descricao;
+  $("#cart-live").textContent = `${titulo} ${descricao}`;
+  $("#toast-image").hidden = !imagem;
+  if (imagem) $("#toast-image").src = imagem;
+  $("#toast-cart").hidden = $("#sacola").open;
+  toast.hidden = false;
+  if (
+    typeof toast.showPopover === "function" &&
+    !toast.matches(":popover-open")
+  )
+    toast.showPopover();
+  animar(toast, "toast-enter");
+  programarToast();
+}
+function atualizarCards() {
+  document.querySelectorAll("[data-product-id]").forEach((card) => {
+    const quantidade =
+      carrinho.find((i) => i.id === card.dataset.productId)?.quantidade || 0;
+    card.classList.toggle("in-cart", quantidade > 0);
+    const badge = card.querySelector(".in-cart-badge");
+    badge.hidden = !quantidade;
+    badge.textContent = `✓ ${quantidade} na sacola`;
+  });
+  document.querySelectorAll("[data-add]").forEach((button) => {
+    const quantidade =
+      carrinho.find((i) => i.id === button.dataset.add)?.quantidade || 0;
+    const p = produtos.find((p) => p._id === button.dataset.add);
+    button.setAttribute(
+      "aria-label",
+      `Adicionar ${p?.nome || "produto"} à sacola${quantidade ? ` (${quantidade} na sacola)` : ""}`,
+    );
+  });
+}
+function confirmarBotao(id) {
+  document.querySelectorAll(`[data-add="${id}"]`).forEach((button) => {
+    clearTimeout(buttonTimers.get(button));
+    button.classList.add("is-added");
+    button.querySelector(".add-icon").textContent = "✓";
+    button.querySelector(".add-label").textContent = "Adicionado";
+    buttonTimers.set(
+      button,
+      setTimeout(() => {
+        button.classList.remove("is-added");
+        button.querySelector(".add-icon").textContent = "+";
+        button.querySelector(".add-label").textContent = button.closest(
+          "#detalhe",
+        )
+          ? "Adicionar à sacola"
+          : "Adicionar";
+      }, 1800),
+    );
+  });
+}
 try {
   const saved = JSON.parse(localStorage.getItem("essencia-sacola") || "[]");
   if (Array.isArray(saved))
@@ -51,17 +136,28 @@ function salvar() {
     0,
   );
   $("#pedido-pronto").hidden = true;
+  atualizarCards();
 }
 function adicionar(id) {
   const item = carrinho.find((i) => i.id === id);
   if (item) {
     if (item.quantidade >= 99)
-      return aviso("Limite de 99 unidades por produto.", true);
+      return confirmarSacola(
+        "Limite por produto atingido",
+        "Você já tem 99 unidades deste item na sacola.",
+      );
     item.quantidade++;
   } else carrinho.push({ id, quantidade: 1 });
   salvar();
   const p = produtos.find((p) => p._id === id);
-  aviso(`${p?.nome || "Produto"} adicionado à sacola.`);
+  const quantidade = carrinho.find((i) => i.id === id).quantidade;
+  confirmarBotao(id);
+  animar($("#abrir-carrinho"), "cart-bump");
+  confirmarSacola(
+    "Boa escolha! Já está na sacola.",
+    `${p?.nome || "Produto"} · ${quantidade} ${quantidade === 1 ? "unidade" : "unidades"}`,
+    p?.imagem,
+  );
 }
 function render() {
   const q = $("#busca").value.toLocaleLowerCase("pt-BR"),
@@ -76,9 +172,10 @@ function render() {
     ps
       .map(
         (p) =>
-          `<article class="product"><button class="product-image" data-ver="${p._id}" aria-label="Ver ${esc(p.nome)}"><img src="${esc(p.imagem)}" alt="${esc(p.nome)}"></button><div class="product-info"><div><h3>${esc(p.nome)}</h3><p>${esc(p.categoria)}</p></div><span class="product-price">${money(p.precoCentavos)}</span></div><div class="product-bottom"><button class="button outline" data-ver="${p._id}">Conhecer</button><button class="add" data-add="${p._id}" aria-label="Adicionar ${esc(p.nome)} à sacola">+</button></div></article>`,
+          `<article class="product" data-product-id="${p._id}"><button class="product-image" data-ver="${p._id}" aria-label="Ver ${esc(p.nome)}"><img src="${esc(p.imagem)}" alt="${esc(p.nome)}"></button><span class="in-cart-badge" hidden></span><div class="product-info"><div><h3>${esc(p.nome)}</h3><p>${esc(p.categoria)}</p></div><span class="product-price">${money(p.precoCentavos)}</span></div><div class="product-bottom"><button class="button outline" data-ver="${p._id}">Conhecer</button><button class="add" data-add="${p._id}" aria-label="Adicionar ${esc(p.nome)} à sacola"><span class="add-icon" aria-hidden="true">+</span><span class="add-label">Adicionar</span></button></div></article>`,
       )
       .join("") || "<p>Nenhum produto encontrado. Experimente outra busca.</p>";
+  atualizarCards();
   $("#origem").textContent =
     `Consulta do catálogo: ${origem === "HIT" ? "cache Redis (HIT)" : origem === "BYPASS" ? "MongoDB direto (cache indisponível)" : "MongoDB (MISS)"}.`;
 }
@@ -118,20 +215,20 @@ async function detalhe(id) {
       .map(([k, v]) => `<span>${esc(k)}: ${esc(v)}</span>`)
       .join(
         "",
-      )}</div><p class="detail-price">${money(p.precoCentavos)}</p><button class="button primary full" data-add="${p._id}">Adicionar à sacola</button>`;
+      )}</div><p class="detail-price">${money(p.precoCentavos)}</p><button class="button primary full" data-add="${p._id}"><span class="add-icon" aria-hidden="true">+</span><span class="add-label">Adicionar à sacola</span></button>`;
+  atualizarCards();
+  fecharToast();
   $("#produto-dialog").showModal();
   await recentes();
 }
 async function sacola() {
+  fecharToast();
   await carregar();
-  $("#itens-sacola").innerHTML = carrinho.length
-    ? carrinho
-        .map((i) => {
-          const p = produtos.find((p) => p._id === i.id);
-          return `<div class="cart-row"><img src="${esc(p?.imagem || "/imagens/caderno.svg")}" alt=""><div class="description"><strong>${esc(p?.nome || "Produto indisponível")}</strong><br><span>${p ? money(p.precoCentavos) : "Atualize sua sacola"}</span><br><button class="remove" data-remove="${i.id}">Remover</button></div><label>Quantidade<input type="number" min="1" max="99" step="1" value="${i.quantidade}" data-quantidade="${i.id}" aria-label="Quantidade de ${esc(p?.nome || "produto")}"></label></div>`;
-        })
-        .join("")
-    : "<p>Sua sacola está esperando suas escolhas.</p>";
+  renderSacola();
+  $("#sacola-status").textContent = "";
+  if (!$("#sacola").open) $("#sacola").showModal();
+}
+function atualizarTotal() {
   $("#total").textContent = money(
     carrinho.reduce(
       (s, i) =>
@@ -145,7 +242,17 @@ async function sacola() {
   $("#comprar").hidden = false;
   $("#pedido-pronto").hidden = true;
   $("#erro-sacola")?.remove();
-  if (!$("#sacola").open) $("#sacola").showModal();
+}
+function renderSacola() {
+  $("#itens-sacola").innerHTML = carrinho.length
+    ? carrinho
+        .map((i) => {
+          const p = produtos.find((p) => p._id === i.id);
+          return `<div class="cart-row"><img src="${esc(p?.imagem || "/imagens/caderno.svg")}" alt=""><div class="description"><strong>${esc(p?.nome || "Produto indisponível")}</strong><br><span>${p ? money(p.precoCentavos) : "Atualize sua sacola"}</span><br><button class="remove" data-remove="${i.id}">Remover</button></div><label>Quantidade<input type="number" min="1" max="99" step="1" value="${i.quantidade}" data-quantidade="${i.id}" aria-label="Quantidade de ${esc(p?.nome || "produto")}"></label></div>`;
+        })
+        .join("")
+    : '<div class="empty-cart"><span aria-hidden="true">♡</span><h3>Ainda cabe uma boa escolha.</h3><p>Explore a coleção e encontre algo com a sua cara.</p><button class="button primary" data-close="sacola">Continuar explorando ↗</button></div>';
+  atualizarTotal();
 }
 function renderAdmin() {
   $("#lista-admin").innerHTML = produtos
@@ -195,6 +302,7 @@ async function tab(nome) {
   if (nome === "integracoes") await integracoes();
 }
 async function navegar() {
+  fecharToast();
   const admin = location.hash === "#admin";
   $("#catalogo").hidden = admin;
   $("#admin").hidden = !admin;
@@ -225,13 +333,24 @@ document.addEventListener("click", async (e) => {
     const add = e.target.closest("[data-add]");
     if (add) {
       adicionar(add.dataset.add);
-      if ($("#produto-dialog").open) $("#produto-dialog").close();
     }
     const rem = e.target.closest("[data-remove]");
     if (rem) {
+      const nome =
+        produtos.find((p) => p._id === rem.dataset.remove)?.nome || "Produto";
+      const linhas = [...$("#itens-sacola").querySelectorAll(".remove")];
+      const posicao = linhas.indexOf(rem);
       carrinho = carrinho.filter((i) => i.id !== rem.dataset.remove);
       salvar();
-      await sacola();
+      renderSacola();
+      $("#sacola-status").textContent = `${nome} removido da sacola.`;
+      const botoes = $("#itens-sacola").querySelectorAll(".remove");
+      (
+        botoes[Math.min(posicao, botoes.length - 1)] ||
+        $("#itens-sacola button") ||
+        $("#sacola .close")
+      ).focus();
+      animar($("#total"), "total-update");
     }
     const edit = e.target.closest("[data-edit]");
     if (edit) formProduto(edit.dataset.edit);
@@ -244,13 +363,32 @@ $("#itens-sacola").addEventListener("change", async (e) => {
   if (!id) return;
   const n = Number(e.target.value);
   if (!Number.isInteger(n) || n < 1 || n > 99) {
-    await sacola();
+    e.target.value = carrinho.find((i) => i.id === id).quantidade;
+    $("#sacola-status").textContent =
+      "Escolha uma quantidade inteira entre 1 e 99.";
     return;
   }
   carrinho.find((i) => i.id === id).quantidade = n;
   salvar();
-  await sacola();
+  atualizarTotal();
+  const nome = produtos.find((p) => p._id === id)?.nome || "Produto";
+  $("#sacola-status").textContent = `${nome}: quantidade atualizada para ${n}.`;
+  animar($("#total"), "total-update");
 });
+$("#toast-close").onclick = fecharToast;
+$("#toast-cart").onclick = async () => {
+  fecharToast();
+  if ($("#produto-dialog").open) $("#produto-dialog").close();
+  try {
+    await sacola();
+  } catch (e) {
+    aviso(e.message, true);
+  }
+};
+$("#cart-toast").addEventListener("mouseenter", () => clearTimeout(toastTimer));
+$("#cart-toast").addEventListener("mouseleave", programarToast);
+$("#cart-toast").addEventListener("focusin", () => clearTimeout(toastTimer));
+$("#cart-toast").addEventListener("focusout", programarToast);
 $("#abrir-carrinho").onclick = () =>
   sacola().catch((e) => aviso(e.message, true));
 $("#busca").oninput = render;
