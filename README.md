@@ -46,7 +46,7 @@ npm start
 
 Abra **http://127.0.0.1:3026**. No PowerShell, se `npm.ps1` estiver bloqueado, use `npm.cmd` nos comandos npm.
 
-`local:config` cria `.env` a partir da CLI do Supabase local e gera uma senha aleatória. Nenhuma credencial é impressa. O catálogo público não exibe link administrativo. Para entrar, abra **http://127.0.0.1:3026/admin** e use `ADMIN_EMAIL` e `ADMIN_PASSWORD` do seu `.env`. O e-mail inicial é `admin@catalogo.local`. `setup` cria a conta apenas se ela ainda não existir; não altera senhas de contas existentes.
+`local:config` cria `.env` a partir da CLI do Supabase local e gera uma senha aleatória. Nenhuma credencial é impressa. Para entrar, use **Área da loja** no menu ou abra **http://127.0.0.1:3026/admin** e use `ADMIN_EMAIL` e `ADMIN_PASSWORD` do seu `.env`. O e-mail inicial é `admin@catalogo.local`. `setup` cria a conta apenas se ela ainda não existir; não altera senhas de contas existentes.
 
 Edite `WHATSAPP_NUMBER` em `.env` com o destino da loja no formato **55 + DDD + número**, só dígitos. O valor de exemplo é propositalmente inválido: o app impede finalizar sem configuração. Reinicie o servidor após alterar. O ambiente do autor já tem seu destino configurado; o número não está publicado no código.
 

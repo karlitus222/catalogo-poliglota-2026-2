@@ -439,7 +439,8 @@ async function navegar() {
   fecharToast();
   const admin = location.pathname.replace(/\/$/, "") === "/admin";
   document.querySelectorAll(".header nav a").forEach((link) => {
-    const ativo = !admin && link.getAttribute("href") === "/#catalogo";
+    const ativo =
+      link.getAttribute("href") === (admin ? "/admin" : "/#catalogo");
     if (ativo) link.setAttribute("aria-current", "page");
     else link.removeAttribute("aria-current");
   });
