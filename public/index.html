@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#18382b" />
+    <meta
+      name="description"
+      content="Conheça a Essência: papelaria, acessórios e objetos para os pequenos rituais do dia a dia. Explore a coleção e monte sua sacola."
+    />
     <title>Essência — escolhas para o seu dia</title>
     <link rel="icon" href="/imagens/caderno.svg" />
     <link rel="stylesheet" href="/style.css" />
@@ -17,7 +21,9 @@
         ></a
       >
       <nav aria-label="Principal">
-        <a href="/#catalogo">Coleção</a><a href="/admin">Área da loja</a
+        <a href="/#catalogo">Coleção</a
+        ><a href="/#sobre" class="nav-story">Nossa história</a
+        ><a href="/admin">Área da loja</a
         ><button id="abrir-carrinho" class="cart-button">
           Sacola <span id="quantidade-sacola">0</span>
         </button>
@@ -63,6 +69,58 @@
           ><span>↗ Pedido direto pelo WhatsApp</span
           ><span>♡ Escolhas com personalidade</span>
         </div>
+        <section class="ritual-section" aria-labelledby="titulo-rituais">
+          <div class="section-top">
+            <div>
+              <p class="eyebrow">CADA DIA TEM O SEU RITMO</p>
+              <h2 id="titulo-rituais">Para os seus pequenos rituais.</h2>
+            </div>
+            <p>Da primeira ideia à última pausa.</p>
+          </div>
+          <div class="ritual-grid">
+            <a
+              class="ritual-card ritual-paper"
+              href="/#colecao"
+              data-category-pick="Papelaria"
+              ><div>
+                <span class="ritual-number">01 / CRIAR</span>
+                <h3>Ideias que<br />merecem papel.</h3>
+                <span class="ritual-link"
+                  >Explorar papelaria <span aria-hidden="true">↗</span></span
+                >
+              </div>
+              <img src="/imagens/caderno.svg" alt="Caderno verde da coleção"
+            /></a>
+            <a
+              class="ritual-card ritual-everyday"
+              href="/#colecao"
+              data-category-pick="Acessórios"
+              ><div>
+                <span class="ritual-number">02 / ACOMPANHAR</span>
+                <h3>Leve o seu<br />mundo com você.</h3>
+                <span class="ritual-link"
+                  >Ver acessórios <span aria-hidden="true">↗</span></span
+                >
+              </div>
+              <img src="/imagens/mochila.svg" alt="Mochila da coleção"
+            /></a>
+            <a
+              class="ritual-card ritual-desk"
+              href="/#colecao"
+              data-category-pick="Escritório"
+              ><div>
+                <span class="ritual-number">03 / INSPIRAR</span>
+                <h3>Um canto para<br />fazer acontecer.</h3>
+                <span class="ritual-link"
+                  >Montar meu espaço <span aria-hidden="true">↗</span></span
+                >
+              </div>
+              <img
+                src="/imagens/luminaria.svg"
+                alt="Luminária de mesa da coleção"
+            /></a>
+          </div>
+        </section>
         <section
           class="collection"
           id="colecao"
@@ -94,7 +152,7 @@
             aria-live="polite"
             aria-busy="false"
           ></div>
-          <p id="origem" class="muted"></p>
+          <p id="origem" class="muted" hidden></p>
         </section>
         <section class="recent-section" aria-labelledby="titulo-recentes">
           <div class="section-top">
@@ -105,6 +163,239 @@
             <span class="muted">Suas últimas escolhas</span>
           </div>
           <div id="recentes" class="recent-grid"></div>
+        </section>
+        <section
+          id="sobre"
+          class="story-section"
+          aria-labelledby="titulo-sobre"
+        >
+          <div
+            class="story-art"
+            aria-label="Composição ilustrada de uma mesa de trabalho"
+          >
+            <div class="story-paper">
+              <span>NOTAS DA ESSÊNCIA / 001</span>
+              <p>Menos pressa.<br />Mais presença.</p>
+              <div class="paper-lines" aria-hidden="true"></div>
+              <em>É nas pequenas coisas.</em>
+            </div>
+            <img
+              class="story-pen"
+              src="/imagens/caneta.svg"
+              alt="Caneta sobre o caderno de ideias"
+            /><img
+              class="story-bottle"
+              src="/imagens/garrafa.svg"
+              alt="Garrafa verde ao lado da mesa"
+            /><span class="story-stamp"
+              >feito de<br /><strong>escolhas.</strong></span
+            >
+          </div>
+          <div class="story-copy">
+            <p class="eyebrow">PRAZER, SOMOS A ESSÊNCIA</p>
+            <h2 id="titulo-sobre">
+              Uma loja de coisas.<br />Uma história de pessoas.
+            </h2>
+            <p>
+              A Essência nasceu em 2024, em um pequeno estúdio de Teresina, de
+              uma pergunta simples: e se os objetos do dia a dia também fossem
+              uma forma de cuidar da gente?
+            </p>
+            <p>
+              Começamos com cadernos, uma mesa cheia de ideias e a vontade de
+              aproximar utilidade e afeto. A coleção cresceu, mas a ideia
+              continua a mesma: escolher peças que façam sentido na vida real.
+            </p>
+            <p>
+              Para estudar, trabalhar, sair de casa ou só fazer uma pausa. A
+              gente acredita que o essencial tem menos a ver com quantidade e
+              mais a ver com o que combina com você.
+            </p>
+            <div class="story-signature">
+              <span class="signature-mark" aria-hidden="true">e.</span>
+              <div>
+                Com carinho, equipe Essência.<small
+                  >De Teresina, para os seus dias.</small
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="values-section" aria-labelledby="titulo-valores">
+          <div class="section-top">
+            <div>
+              <p class="eyebrow">O QUE GUIA NOSSAS ESCOLHAS</p>
+              <h2 id="titulo-valores">Mais intenção em cada detalhe.</h2>
+            </div>
+          </div>
+          <div class="values-grid">
+            <article>
+              <span class="value-icon" aria-hidden="true">✧</span>
+              <h3>Beleza que funciona</h3>
+              <p>
+                Formas simples, cores que acolhem e utilidade de verdade. O
+                bonito também precisa fazer parte da rotina.
+              </p>
+            </article>
+            <article>
+              <span class="value-icon" aria-hidden="true">↗</span>
+              <h3>Escolher com calma</h3>
+              <p>
+                Uma coleção para explorar no seu tempo. Conheça os detalhes e
+                leve aquilo que faz sentido para você.
+              </p>
+            </article>
+            <article>
+              <span class="value-icon" aria-hidden="true">♡</span>
+              <h3>Conversa de perto</h3>
+              <p>
+                O pedido começa aqui e continua em uma conversa. Para combinar
+                os detalhes e tirar as dúvidas antes de fechar.
+              </p>
+            </article>
+          </div>
+        </section>
+        <section
+          id="como-comprar"
+          class="how-section"
+          aria-labelledby="titulo-comprar"
+        >
+          <div class="how-intro">
+            <p class="eyebrow">DO SEU JEITO, SEM COMPLICAR</p>
+            <h2 id="titulo-comprar">Gostou?<br />A gente conversa.</h2>
+            <p>Um caminho simples entre descobrir e escolher.</p>
+            <a href="/#colecao" class="button primary"
+              >Encontrar meu essencial <span aria-hidden="true">↗</span></a
+            >
+          </div>
+          <ol class="buy-steps">
+            <li>
+              <span class="step-number">01</span>
+              <div>
+                <h3>Explore a coleção</h3>
+                <p>
+                  Use os filtros, veja os detalhes e conheça as peças que
+                  chamarem sua atenção.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span class="step-number">02</span>
+              <div>
+                <h3>Monte a sua sacola</h3>
+                <p>
+                  Adicione seus favoritos e ajuste as quantidades. O resumo fica
+                  pronto para você conferir.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span class="step-number">03</span>
+              <div>
+                <h3>Continue no WhatsApp</h3>
+                <p>
+                  Prepare o pedido e abra a mensagem. A loja confirma
+                  disponibilidade, entrega e pagamento na conversa.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </section>
+        <section
+          id="duvidas"
+          class="faq-section"
+          aria-labelledby="titulo-duvidas"
+        >
+          <div class="faq-intro">
+            <p class="eyebrow">ANTES DE ESCOLHER</p>
+            <h2 id="titulo-duvidas">Talvez você<br />esteja pensando…</h2>
+            <p>Algumas respostas para deixar tudo mais simples.</p>
+          </div>
+          <div class="faq-list">
+            <details>
+              <summary>
+                Como faço um pedido?<span aria-hidden="true">+</span>
+              </summary>
+              <p>
+                Adicione os produtos à sacola e clique em “Preparar pedido no
+                WhatsApp”. Confira o resumo e use “Abrir WhatsApp” para revisar
+                e enviar a mensagem para a loja.
+              </p>
+            </details>
+            <details>
+              <summary>
+                Preciso criar uma conta para comprar?<span aria-hidden="true"
+                  >+</span
+                >
+              </summary>
+              <p>
+                Não. Você pode explorar o catálogo e montar a sacola livremente.
+                O login em “Área da loja” é exclusivo para quem administra a
+                coleção.
+              </p>
+            </details>
+            <details>
+              <summary>
+                O pedido já é uma compra confirmada?<span aria-hidden="true"
+                  >+</span
+                >
+              </summary>
+              <p>
+                Ainda não. Preparar o pedido organiza suas escolhas em uma
+                mensagem. A compra é combinada depois, na conversa com a loja,
+                após confirmar a disponibilidade e as condições.
+              </p>
+            </details>
+            <details>
+              <summary>
+                Como funcionam a entrega e o pagamento?<span aria-hidden="true"
+                  >+</span
+                >
+              </summary>
+              <p>
+                Os detalhes são combinados pelo WhatsApp antes de fechar o
+                pedido. Informe sua região para consultar as possibilidades de
+                entrega, o prazo e as formas de pagamento disponíveis.
+              </p>
+            </details>
+            <details>
+              <summary>
+                Posso mudar de ideia sobre um produto?<span aria-hidden="true"
+                  >+</span
+                >
+              </summary>
+              <p>
+                Claro. Antes de preparar o pedido, você pode alterar as
+                quantidades ou remover itens da sacola. Se a conversa já
+                começou, combine qualquer alteração diretamente com a loja.
+              </p>
+            </details>
+            <details>
+              <summary>
+                Por que alguns produtos aparecem em “Você viu por aqui”?<span
+                  aria-hidden="true"
+                  >+</span
+                >
+              </summary>
+              <p>
+                É um atalho para reencontrar suas últimas descobertas neste
+                navegador. Esse histórico é temporário e pode desaparecer depois
+                de um tempo.
+              </p>
+            </details>
+          </div>
+        </section>
+        <section class="brand-note" aria-label="Convite da Essência">
+          <span aria-hidden="true">✳</span>
+          <p>
+            O dia a dia já tem muita coisa.<br /><em
+              >Que as suas escolhas tragam leveza.</em
+            >
+          </p>
+          <a href="/#colecao"
+            >Encontre a sua próxima escolha
+            <span aria-hidden="true">↗</span></a
+          >
         </section>
       </section>
       <section id="admin" hidden>
@@ -167,10 +458,39 @@
         </div>
       </section>
     </main>
-    <footer>
-      <a href="/#catalogo" class="brand">essência.</a>
-      <p>Objetos simples. Dias cheios de possibilidades.</p>
-      <span>Projeto acadêmico · Carlos Gabriel</span>
+    <footer class="site-footer">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a href="/#catalogo" class="brand">essência.</a>
+          <p>Objetos simples.<br />Dias cheios de possibilidades.</p>
+          <span>Teresina, Piauí · Desde 2024</span>
+        </div>
+        <nav aria-label="Explore a Essência">
+          <h2>Explore</h2>
+          <a href="/#colecao">Nossa coleção</a
+          ><a href="/#sobre">Nossa história</a
+          ><a href="/#como-comprar">Como comprar</a>
+        </nav>
+        <nav aria-label="Ajuda e acesso">
+          <h2>Vamos conversar</h2>
+          <a href="/#duvidas">Perguntas frequentes</a
+          ><a href="/#como-comprar">Pedidos pelo WhatsApp</a
+          ><a href="/admin">Área da loja</a>
+        </nav>
+        <div class="footer-message">
+          <span class="footer-star" aria-hidden="true">✧</span>
+          <p>
+            Escolhido com intenção.<br /><strong>Para estar com você.</strong>
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span
+          >© 2026 Essência · Marca e história fictícias para
+          demonstração.</span
+        ><span>Projeto acadêmico · Carlos Gabriel</span
+        ><a href="/#catalogo">Voltar ao início ↑</a>
+      </div>
     </footer>
     <p
       id="cart-live"

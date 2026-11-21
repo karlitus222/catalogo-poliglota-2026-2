@@ -440,7 +440,12 @@ async function navegar() {
   const admin = location.pathname.replace(/\/$/, "") === "/admin";
   document.querySelectorAll(".header nav a").forEach((link) => {
     const ativo =
-      link.getAttribute("href") === (admin ? "/admin" : "/#catalogo");
+      link.getAttribute("href") ===
+      (admin
+        ? "/admin"
+        : location.hash === "#sobre"
+          ? "/#sobre"
+          : "/#catalogo");
     if (ativo) link.setAttribute("aria-current", "page");
     else link.removeAttribute("aria-current");
   });
@@ -466,6 +471,15 @@ async function navegar() {
 }
 document.addEventListener("click", async (e) => {
   try {
+    const categoria = e.target.closest("[data-category-pick]");
+    if (categoria) {
+      const valor = categoria.dataset.categoryPick;
+      $("#busca").value = "";
+      if ([...$("#categoria").options].some((o) => o.value === valor)) {
+        $("#categoria").value = valor;
+        render();
+      }
+    }
     const limpar = e.target.closest("[data-clear-filter]");
     if (limpar) {
       const tipo = limpar.dataset.clearFilter;
