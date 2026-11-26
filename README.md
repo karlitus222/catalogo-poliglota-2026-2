@@ -134,7 +134,13 @@ Em 21/11/2026: **11 testes aprovados, sem falhas ou ignorados**; advisor Supabas
 
 São criados apenas registros de teste identificáveis e prefixos de cache exclusivos. A limpeza apaga esses registros ao terminar. O destino do WhatsApp é verificado pela URL sem enviar mensagem.
 
-A revisão visual e o vídeo de apresentação ainda precisam ser concluídos. O [roteiro de apresentação](docs/validacao.md) reúne os fluxos a conferir e demonstrar.
+A revisão visual e a gravação foram concluídas em 25/11/2026. Os 11 testes de integração foram executados novamente e passaram. O [roteiro de apresentação e a verificação](docs/validacao.md) registram os fluxos demonstrados.
+
+## Vídeo e pacote de entrega
+
+O vídeo `Demonstracao_Catalogo_Essencia_Entrega.mp4`, com aproximadamente 6 minutos e 8 segundos, acompanha o arquivo `Catalogo_Poliglota_Entrega_Final.zip` preparado para a Plataforma A. O pacote reúne o vídeo, uma cópia do código-fonte e as instruções de execução. Para assistir, extraia o ZIP e abra o MP4.
+
+A demonstração mostra navegação, filtros, detalhes, sacola, login administrativo, cadastro e edição no MongoDB, pedido persistido no Supabase e redirecionamento para a página do WhatsApp com a mensagem formatada. A verificação do redirecionamento não envia a mensagem. O destino da loja deve ser configurado em `.env`, conforme as instruções acima.
 
 ## Segurança e limites
 

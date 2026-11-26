@@ -2,7 +2,7 @@
 
 ## Preparação
 
-Inicie os serviços e a aplicação seguindo o README. A apresentação deve durar de 5 a 10 minutos e mostrar o sistema em execução. A revisão visual e a gravação ainda estão pendentes.
+Inicie os serviços e a aplicação seguindo o README. A apresentação deve durar de 5 a 10 minutos e mostrar o sistema em execução. A revisão visual e a gravação foram concluídas em 25/11/2026.
 
 ## Fluxos a conferir
 
@@ -35,4 +35,8 @@ Mantenha senhas, tokens, chaves e o arquivo .env fora da gravação.
 
 Em 21/11/2026, os 11 testes de integração passaram com Supabase, MongoDB e Redis locais. O advisor de segurança do Supabase não reportou problemas e o npm audit não reportou vulnerabilidades.
 
-A interface também foi conferida em DOM isolado, com respostas controladas, para busca, limpeza de filtros, confirmação de adição, carregamento da sacola, remoção e desfazer, atualização de quantidade e pedido com erro ou sucesso. Dois cliques rápidos geraram uma solicitação. Essa validação não substitui a revisão visual no navegador.
+A interface também foi conferida em DOM isolado, com respostas controladas, para busca, limpeza de filtros, confirmação de adição, carregamento da sacola, remoção e desfazer, atualização de quantidade e pedido com erro ou sucesso. Dois cliques rápidos geraram uma solicitação.
+
+Em 25/11/2026, os fluxos foram conferidos e capturados no navegador com os serviços reais. Foi cadastrado o Caderno Aurora e seu preço foi editado de R$ 34,90 para R$ 39,90; a alteração apareceu no catálogo. A sacola com duas Garrafas Essenciais e uma Mochila Urbana totalizou R$ 249,70. O pedido foi persistido e consultado no painel. O link abriu a página do WhatsApp com os itens, as quantidades, o total e a referência preenchidos; nenhuma mensagem foi enviada. As conexões com os três bancos foram conferidas. Os 11 testes foram novamente aprovados.
+
+O MP4 de entrega, com cerca de 6 minutos e 8 segundos, está incluído no ZIP preparado para envio pela Plataforma A, junto com o código-fonte. O vídeo combina a narração original com capturas da aplicação, aproximações, transições e diagramas explicativos.
